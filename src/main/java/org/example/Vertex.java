@@ -1,10 +1,9 @@
 package org.example;
 
 public class Vertex {
-    private static int id_count = 0;
     private int id;
 
-    public Vertex(){this.id = id_count++;}
+    public Vertex(int number){this.id = number;}
 
     public int getId() {return id;}
 

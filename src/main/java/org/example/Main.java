@@ -1,7 +1,8 @@
+import org.example.Experiment;
 import org.example.Graph;
 
 void main() {
-    Graph graph = new Graph(10, false);
-    graph.printGraph();
-    graph.bfs(0);
+    Experiment experiment = new Experiment();
+    experiment.runMultipleTests();
+    experiment.printResults();
 }
