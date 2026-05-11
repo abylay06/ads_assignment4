@@ -7,5 +7,11 @@ public class Vertex {
 
     public int getId() {return id;}
 
+    @Override
+    public boolean equals(Object o) {
+        Vertex vertex = (Vertex) o;
+        return id == vertex.id;
+    }
+
     public String toString(){return "Vertex with id of "+ id;}
 }

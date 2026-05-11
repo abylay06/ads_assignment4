@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.Random;
+import java.util.*;
 
 public class Graph {
     boolean directed;
@@ -21,16 +18,16 @@ public class Graph {
         for (int v = 0; v < V*2; v++) {
             int source = rand.nextInt(V);
             int dest = rand.nextInt(V);
-            if (source!=dest) addEdge(source, dest);
+            addEdge(source, dest);
+
         }
     }
 
     public void addEdge(int source, int dest){
         if (source < 0 || dest < 0 || source >= V || dest >= V) return;
-        if (source == dest || adj[source].contains(dest)) return;
-
+        if (source == dest || adj[source].contains(new Vertex(dest))) return;
         adj[source].add(new Vertex(dest));
-        if (!directed) adj[dest].add(new Vertex(source));
+        if (!directed && !adj[dest].contains(new Vertex(source))) adj[dest].add(new Vertex(source));
         E++;
     }
 
@@ -51,8 +48,8 @@ public class Graph {
             if (!visited[v]){
                 visited[v] = true;
                 stack.add(new Vertex(v));
-                Vertex u = stack.lastElement();
-                while(!stack.empty()) {
+                Vertex u = stack.getLast();
+                while(!stack.isEmpty()) {
                     boolean backtrack = true;
                    for (int i = 0; i < adj[u.getId()].size(); i++) {
                        if (!visited[adj[u.getId()].get(i).getId()]) {
@@ -65,7 +62,7 @@ public class Graph {
                    }
                    if (backtrack) {
                         stack.pop();
-                        if (!stack.empty()) u = stack.lastElement();
+                        if (!stack.isEmpty()) u = stack.peek();
                    }
 
                 }
@@ -80,7 +77,6 @@ public class Graph {
         queue.add(new Vertex(start));
         while(!queue.isEmpty()){
             Vertex u = queue.poll();
-            //if (V <= 10) System.out.println(u + " ");
             for (int i = 0; i < adj[u.getId()].size(); i++){
                 if (!visited[adj[u.getId()].get(i).getId()]){
                     visited[adj[u.getId()].get(i).getId()]=true;
