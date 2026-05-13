@@ -41,31 +41,29 @@ public class Graph {
         }
     }
 
-    public void dfs(){;
+    public void dfs(int start){;
         boolean[] visited = new boolean[V];
         Stack<Vertex> stack = new Stack<>();
-        for (int v = 0; v < V; v++){
-            if (!visited[v]){
-                visited[v] = true;
-                stack.add(new Vertex(v));
-                Vertex u = stack.getLast();
-                while(!stack.isEmpty()) {
-                    boolean backtrack = true;
-                   for (int i = 0; i < adj[u.getId()].size(); i++) {
-                       if (!visited[adj[u.getId()].get(i).getId()]) {
-                           visited[adj[u.getId()].get(i).getId()] = true;
-                           stack.add(adj[u.getId()].get(i));
-                           u = adj[u.getId()].get(i);
-                           backtrack = false;
-                           break;
-                       }
-                   }
-                   if (backtrack) {
-                        stack.pop();
-                        if (!stack.isEmpty()) u = stack.peek();
-                   }
-
+        if (!visited[start]){
+            visited[start] = true;
+            stack.add(new Vertex(start));
+            Vertex u = stack.getLast();
+            while(!stack.isEmpty()) {
+                boolean backtrack = true;
+                for (int i = 0; i < adj[u.getId()].size(); i++) {
+                    if (!visited[adj[u.getId()].get(i).getId()]) {
+                        visited[adj[u.getId()].get(i).getId()] = true;
+                        stack.add(adj[u.getId()].get(i));
+                        u = adj[u.getId()].get(i);
+                        backtrack = false;
+                        break;
+                    }
                 }
+                if (backtrack) {
+                    stack.pop();
+                    if (!stack.isEmpty()) u = stack.peek();
+                }
+
             }
         }
     }

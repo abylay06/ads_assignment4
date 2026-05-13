@@ -8,11 +8,11 @@ public class Experiment {
 
     public void runTraversals(Graph g){
         for (int i = 0; i < 3; i++) {
-            g.dfs();
+            g.dfs(0);
             g.bfs(0);
         }
         long start = System.nanoTime();
-        g.dfs();
+        g.dfs(0);
         long end = System.nanoTime();
         times[index++] = end - start;
         long start2 = System.nanoTime();
